@@ -17,6 +17,7 @@ setenforce 0
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
+# setup caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
 mkdir -p /data/www/default
@@ -24,16 +25,39 @@ mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
-
-
-
-
-
-
-
-
-
-
-
-
-
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/Caddyfile -O /etc/caddy/Caddyfile
+# setup mariadb 10.11
+wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+chmod +x mariadb_repo_setup.sh
+./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
+dnf install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared MariaDB-backup
+lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
+sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
+systemctl start mariadb
+db_pass="Thisisdbrootpassword"
+mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
+mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass}\" with grant option;"
+mysql -uroot -p${db_pass} 2>/dev/null <<EOF
+drop database if exists test;
+delete from mysql.db where user='';
+delete from mysql.db where user='PUBLIC';
+delete from mysql.user where user='';
+delete from mysql.user where user='mysql';
+delete from mysql.user where user='PUBLIC';
+flush privileges;
+exit
+EOF
+# setup php 8.2
+dnf config-manager --set-enabled crb
+dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+dnf module reset -y php
+dnf module install -y php:remi-8.2
+dnf install -y php-cli php-bcmath php-embedded php-gd php-imap php-mysqlnd php-dba php-pdo php-pdo-dblib php-pgsql php-odbc php-enchant php-gmp php-intl php-ldap php-snmp php-soap php-tidy php-opcache php-process php-pspell php-shmop php-sodium php-ffi php-brotli php-lz4 php-xz php-zstd
+dnf install -y php-pecl-imagick-im7 php-pecl-zip php-pecl-mongodb php-pecl-swoole5 php-pecl-grpc php-pecl-yaml php-pecl-uuid
+# start 
+systemctl start php-fpm
+systemctl start caddy
+systemctl enable mariadb
+systemctl enable php-fpm
+systemctl enable caddy
