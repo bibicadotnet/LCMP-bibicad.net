@@ -1,0 +1,21 @@
+{
+    admin off
+}
+:80 {
+    # Set this path to your site's directory.
+    root * /data/www/default
+    encode gzip
+    # Enable the static file server.
+    file_server {
+        index index.html
+    }
+    # Serve a PHP site through php-fpm:
+    php_fastcgi unix//run/php-fpm/www.sock {
+        split .php
+        index index.php
+    }
+    log {
+        output file /var/log/caddy/access.log
+    }
+}
+import /etc/caddy/conf.d/*.conf
