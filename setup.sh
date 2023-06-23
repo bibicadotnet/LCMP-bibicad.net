@@ -61,9 +61,9 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/php.ini -O /etc/ph
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/www.conf -O /etc/php-fpm.d/www.conf
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/my.cnf -O /etc/my.cnf
 # start
-systemctl start mariadb
-systemctl start php-fpm
-systemctl start caddy
 systemctl enable mariadb
 systemctl enable php-fpm
 systemctl enable caddy
+systemctl start mariadb
+systemctl start php-fpm
+systemctl start caddy
