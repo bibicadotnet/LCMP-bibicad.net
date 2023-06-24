@@ -31,7 +31,6 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/Caddyfile -O /etc/
 # setup mariadb 10.11
 sudo apt update
 sudo apt install mariadb-server -y
-sudo mysql_secure_installation
 systemctl start mariadb
 db_pass="Thisisdbrootpassword"
 mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
