@@ -59,8 +59,8 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/www.conf -O
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/my.cnf -O /etc/mysql/my.cnf
 # start
 systemctl enable mariadb
-systemctl enable php-fpm
+systemctl enable php8.2-fpm
 systemctl enable caddy
 systemctl start mariadb
-systemctl start php-fpm
+systemctl start php8.2-fpm
 systemctl start caddy
