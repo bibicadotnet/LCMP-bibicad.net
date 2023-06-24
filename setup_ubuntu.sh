@@ -50,8 +50,7 @@ systemctl stop mariadb
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
-sudo apt install php8.2 -y
-sudo apt install php8.2-fpm
+sudo apt install php8.2-fpm -y
 sudo apt install php8.2-{bcmath,fpm,xml,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi} -y
 # Optimization
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/php.ini -O /etc/php/8.2/fpm/php.ini
