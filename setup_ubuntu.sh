@@ -1,6 +1,5 @@
 # update
-sudo apt update && sudo apt upgrade -y
-[ -f /var/run/reboot-required ] && sudo reboot -f
+sudo apt update -y
 sudo apt install htop -y
 sudo apt install zip -y
 sudo apt install unzip -y
