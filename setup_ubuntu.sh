@@ -54,9 +54,9 @@ sudo apt update
 sudo apt install php8.2 -y
 sudo apt-get install -y php8.2-cli php8.2-common php8.2-fpm php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath
 # Optimization
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/php.ini -O /etc/php.ini
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/www.conf -O /etc/php-fpm.d/www.conf
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/my.cnf -O /etc/my.cnf
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/php.ini -O /etc/php/8.2/fpm/php.ini
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
+https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/my.cnf -O /etc/mysql/my.cnf
 # start
 systemctl enable mariadb
 systemctl enable php-fpm
