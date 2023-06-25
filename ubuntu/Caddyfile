@@ -10,7 +10,7 @@
         index index.html
     }
     # Serve a PHP site through php-fpm:
-    php_fastcgi unix:/var/run/php/php8.2-fpm.sock {
+    php_fastcgi unix:/run/php/php8.2-fpm.sock {
         split .php
         index index.php
     }
