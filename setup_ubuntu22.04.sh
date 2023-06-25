@@ -56,16 +56,10 @@ sudo apt install php8.2-common php8.2-mysql php8.2-xml php8.2-xmlrpc php8.2-curl
 sudo php-fpm8.2 -t 
 sudo service php8.2-fpm restart
 
-
-
-# Optimization
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/php.ini -O /etc/php.ini
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/www.conf -O /etc/php-fpm.d/www.conf
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/my.cnf -O /etc/my.cnf
 # start
 systemctl enable mariadb
-systemctl enable php-fpm
+systemctl enable php8.2-fpm
 systemctl enable caddy
 systemctl start mariadb
-systemctl start php-fpm
+systemctl start php8.2-fpm
 systemctl start caddy
