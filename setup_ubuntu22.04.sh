@@ -51,22 +51,13 @@ systemctl stop mariadb
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt install php8.2 -y
-sudo apt install php8.2-{bcmath,fpm,xml,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi} -y
-sudo apt install nginx php8.2-fpm -y
+sudo apt install php8.2-fpm -y
+sudo apt install php8.2-common php8.2-mysql php8.2-xml php8.2-xmlrpc php8.2-curl php8.2-gd php8.2-imagick php8.2-cli php8.2-dev php8.2-imap php8.2-mbstring php8.2-opcache php8.2-soap php8.2-zip php8.2-intl -y
+sudo php-fpm8.2 -t 
+sudo service php8.2-fpm restart
 
 
 
-
-apt  config-manager --set-enabled crb
-apt  install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-apt  install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
-apt  module reset -y php
-apt  module install -y php:remi-8.2
-apt  install -y php-cli php-bcmath php-embedded php-gd php-imap php-mysqlnd php-dba php-pdo php-pdo-dblib php-pgsql php-odbc php-enchant php-gmp php-intl php-ldap php-snmp php-soap php-tidy php-opcache php-process php-pspell php-shmop php-sodium php-ffi php-brotli php-lz4 php-xz php-zstd
-apt  install -y php-pecl-imagick-im7 php-pecl-zip php-pecl-mongodb php-pecl-swoole5 php-pecl-grpc php-pecl-yaml php-pecl-uuid
-chown root.caddy /var/lib/php/session
-chown root.caddy /var/lib/php/wsdlcache
-chown root.caddy /var/lib/php/opcache
 # Optimization
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/php.ini -O /etc/php.ini
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/www.conf -O /etc/php-fpm.d/www.conf
