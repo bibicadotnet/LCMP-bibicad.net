@@ -12,26 +12,26 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo sysctl vm.swappiness=10
-
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
 # setup caddy
-apt  install -y apt -plugins-core
-apt  copr enable @caddy/caddy -y && apt  install -y caddy && caddy version
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update && sudo apt install caddy -y
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/Caddyfile -O /etc/caddy/Caddyfile
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -O /etc/caddy/Caddyfile
+
 # setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
-apt  install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared MariaDB-backup
-lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
-sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
+sudo apt install mariadb-server -y
 systemctl start mariadb
 db_pass="Thisisdbrootpassword"
 mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
@@ -48,6 +48,15 @@ exit
 EOF
 systemctl stop mariadb
 # setup php 8.2
+sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt install php8.2 -y
+sudo apt install php8.2-{bcmath,fpm,xml,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi} -y
+sudo apt install nginx php8.2-fpm -y
+
+
+
+
 apt  config-manager --set-enabled crb
 apt  install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 apt  install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
