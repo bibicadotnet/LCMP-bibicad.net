@@ -1,5 +1,6 @@
-sudo dnf update -y
 sudo dnf install epel-release -y
+sudosudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo dnf update -y
 sudo dnf install htop -y
 sudo dnf install zip -y
 sudo dnf install unzip -y
