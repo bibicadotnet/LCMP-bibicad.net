@@ -1,9 +1,12 @@
+# update Ubuntu
 sudo apt  update -y
 sudo apt  install htop -y
 sudo apt  install zip -y
 sudo apt  install unzip -y
 sudo apt  install screen -y
 sudo apt  install wget -y
+
+# setup swapfile
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
@@ -11,9 +14,12 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo sysctl vm.swappiness=10
+
+# off firewall
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
+
 # setup caddy
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -26,7 +32,7 @@ chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -O /etc/caddy/Caddyfile
 
-# setup mariadb 10.11
+# setup mariadb 10.11 - pass rood Thisisdbrootpassword
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
@@ -46,6 +52,7 @@ flush privileges;
 exit
 EOF
 systemctl stop mariadb
+
 # setup php 8.2
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
