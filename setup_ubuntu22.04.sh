@@ -25,15 +25,11 @@ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https cu
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update && sudo apt install caddy -y
-
 # setup mariadb 10.11 - pass rood Thisisdbrootpassword
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
 sudo apt install mariadb-server -y
-# make password for root
-echo -e "${MARIADB_ROOT_PASSWORD}\nY\nn\nY\nn\nY\nY\n" | mysql_secure_installation
-
 
 # setup php 8.2
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
@@ -57,6 +53,8 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/php.ini -O /etc/php/8.2/fpm/php.ini
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/my.cnf -O /etc/mysql/my.cnf
+# make password for root
+echo -e "${MARIADB_ROOT_PASSWORD}\nY\nn\nY\nn\nY\nY\n" | mysql_secure_installation
 
 # start
 systemctl enable mariadb
