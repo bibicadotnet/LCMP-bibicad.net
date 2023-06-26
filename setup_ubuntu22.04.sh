@@ -32,11 +32,8 @@ chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
 sudo apt install mariadb-server -y
 # make password for root
-mysql -e "UPDATE mysql.user SET Password = PASSWORD('thismypassword') WHERE User = 'root'"
-mysql -e "DROP USER ''@'localhost'"
-mysql -e "DROP USER ''@'$(hostname)'"
-mysql -e "DROP DATABASE test"
-mysql -e "FLUSH PRIVILEGES"
+echo -e "${MARIADB_ROOT_PASSWORD}\nY\nn\nY\nn\nY\nY\n" | mysql_secure_installation
+
 
 # setup php 8.2
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
