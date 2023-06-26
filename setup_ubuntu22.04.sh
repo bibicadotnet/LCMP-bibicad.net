@@ -29,6 +29,12 @@ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https cu
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update && sudo apt install caddy -y
+mkdir -p /data/www/default
+mkdir -p /var/log/caddy/
+mkdir -p /etc/caddy/conf.d/
+chown -R caddy.caddy /data/www/default
+chown -R caddy.caddy /var/log/caddy/
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -O /etc/caddy/Caddyfile
 
 # setup mariadb 10.11 - pass rood Thisisdbrootpassword
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
@@ -62,12 +68,7 @@ systemctl stop caddy
 systemctl stop mariadb
 systemctl stop php8.2-fpm
 
-mkdir -p /data/www/default
-mkdir -p /var/log/caddy/
-mkdir -p /etc/caddy/conf.d/
-chown -R caddy.caddy /data/www/default
-chown -R caddy.caddy /var/log/caddy/
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -O /etc/caddy/Caddyfile
+
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/php.ini -O /etc/php/8.2/fpm/php.ini
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/my.cnf -O /etc/mysql/my.cnf
