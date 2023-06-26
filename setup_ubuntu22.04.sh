@@ -50,9 +50,10 @@ sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https softw
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt install php8.2 -y
 sudo apt install php8.2-fpm -y
-sudo apt install php8.2-curl php8.2-dom php8.2-exif php8.2-fileinfo php8.2-imagick php8.2-mbstring php8.2-mysqli php8.2-xml php8.2-zip php8.2-bcmath -y
-sudo apt install php8.2-iconv php8.2-intl php8.2-mcrypt php8.2-simplexml php8.2-xmlreader php8.2-ssh2 php8.2-ftp php8.2-sockets php8.2-common php8.2-xmlrpc php8.2-cli php8.2-dev php8.2-imap -y
-sudo apt install php8.2-opcache php8.2-soap php8.2-gd -y
+sudo apt install php8.2-cli php8.2-bcmath php8.2-embedded php8.2-gd php8.2-imap php8.2-mysqlnd php8.2-dba php8.2-pdo php8.2-pdo-dblib php8.2-pgsql php8.2-odbc php8.2-dom php8.2-fileinfo php8.2-mbstring php8.2-mysqli -y
+sudo apt install php8.2-enchant php8.2-gmp php8.2-intl php8.2-ldap php8.2-snmp php8.2-soap php8.2-tidy php8.2-opcache php8.2-process php8.2-pspell php8.2-shmop php8.2-sodium php8.2-ffi php8.2-brotli php8.2-lz4 php8.2-xz php8.2-zstd -y
+sudo apt install php8.2-pecl-imagick-im7 php8.2-pecl-zip php8.2-pecl-mongodb php8.2-pecl-swoole5 php8.2-pecl-grpc php8.2-pecl-yaml php8.2-pecl-uuid php8.2-curl php8.2-exif php8.2-imagick php8.2-xml -y
+sudo apt install php8.2-bcmath php8.2-iconv php8.2-mcrypt php8.2-simplexml php8.2-xmlreader php8.2-ssh2 php8.2-ftp php8.2-sockets php8.2-common php8.2-xmlrpc hp8.2-dev -y
 sudo php-fpm8.2 -t
 
 # Optimization
