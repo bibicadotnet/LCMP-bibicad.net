@@ -1,3 +1,4 @@
+#!/bin/bash
 # update Ubuntu
 sudo apt  update -y
 sudo apt  install htop -y
