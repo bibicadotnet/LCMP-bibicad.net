@@ -72,3 +72,6 @@ systemctl enable caddy
 systemctl start mariadb
 systemctl start php8.2-fpm
 systemctl start caddy
+systemctl restart mariadb
+systemctl restart php8.2-fpm
+systemctl restart caddy
