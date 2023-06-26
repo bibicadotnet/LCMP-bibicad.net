@@ -25,18 +25,34 @@ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https cu
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update && sudo apt install caddy -y
+
 # setup mariadb 10.11 - pass rood Thisisdbrootpassword
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
 sudo apt install mariadb-server -y
+db_pass="Thisisdbrootpassword"
+mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
+mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass}\" with grant option;"
+mysql -uroot -p${db_pass} 2>/dev/null <<EOF
+drop database if exists test;
+delete from mysql.db where user='';
+delete from mysql.db where user='PUBLIC';
+delete from mysql.user where user='';
+delete from mysql.user where user='mysql';
+delete from mysql.user where user='PUBLIC';
+flush privileges;
+exit
+EOF
 
 # setup php 8.2
 sudo apt install -y lsb-release gnupg2 ca-certificates apt-transport-https software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt install php8.2 -y
 sudo apt install php8.2-fpm -y
-sudo apt install php8.2-common php8.2-mysql php8.2-xml php8.2-xmlrpc php8.2-curl php8.2-gd php8.2-imagick php8.2-cli php8.2-dev php8.2-imap php8.2-mbstring php8.2-opcache php8.2-soap php8.2-zip php8.2-intl -y
+sudo apt install php8.2-curl php8.2-dom php8.2-exif php8.2-fileinfo php8.2-imagick php8.2-mbstring php8.2-mysqli php8.2-xml php8.2-zip php8.2-bcmath -y
+sudo apt install php8.2-iconv php8.2-intl php8.2-mcrypt php8.2-simplexml php8.2-xmlreader php8.2-ssh2 php8.2-ftp php8.2-sockets php8.2-common php8.2-xmlrpc php8.2-cli php8.2-dev php8.2-imap -y
+sudo apt install php8.2-opcache php8.2-soap php8.2-gd -y
 sudo php-fpm8.2 -t
 
 # Optimization
@@ -53,8 +69,6 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/Caddyfile -
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/php.ini -O /etc/php/8.2/fpm/php.ini
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/ubuntu/my.cnf -O /etc/mysql/my.cnf
-# make password for root
-echo -e "${MARIADB_ROOT_PASSWORD}\nY\nn\nY\nn\nY\nY\n" | mysql_secure_installation
 
 # start
 systemctl enable mariadb
@@ -66,3 +80,4 @@ systemctl start caddy
 systemctl restart mariadb
 systemctl restart php8.2-fpm
 systemctl restart caddy
+systemctl status mariadb
