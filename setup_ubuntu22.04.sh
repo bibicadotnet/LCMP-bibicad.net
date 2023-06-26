@@ -5,6 +5,10 @@ sudo apt  install zip -y
 sudo apt  install unzip -y
 sudo apt  install screen -y
 sudo apt  install wget -y
+locale-gen en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+timedatectl set-timezone Asia/Ho_Chi_Minh
 
 # setup swapfile
 sudo fallocate -l 2G /swapfile
