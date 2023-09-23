@@ -55,7 +55,7 @@ dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
 dnf module reset -y php
 dnf module install -y php:remi-7.4
 dnf install -y php-cli php-bcmath php-embedded php-gd php-imap php-mysqlnd php-dba php-pdo php-pdo-dblib php-pgsql php-odbc php-enchant php-gmp php-intl php-ldap php-snmp php-soap php-tidy php-opcache php-process php-pspell php-shmop php-sodium php-ffi php-brotli php-lz4 php-xz php-zstd
-dnf install -y php-pecl-imagick-im7 php-pecl-zip php-pecl-mongodb php-pecl-grpc php-pecl-yaml php-pecl-uuid
+dnf install -y php-pecl-imagick-im7 php-pecl-zip php-pecl-mongodb php-pecl-grpc php-pecl-yaml php-pecl-uuid php-zip
 chown root.caddy /var/lib/php/session
 chown root.caddy /var/lib/php/wsdlcache
 chown root.caddy /var/lib/php/opcache
