@@ -88,4 +88,38 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.
 systemctl restart caddy
 
 #setup database
+mysql -u root -p'Thisisdbrootpassword'
+CREATE DATABASE wordpress_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL ON wordpress_database.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password_pass';
+FLUSH PRIVILEGES;
+EXIT;
+
+# setup wp-cli
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+
+# make foder bibica.net
+mkdir -p /var/www/bibica.net/htdocs
+cd /var/www/bibica.net/htdocs
+wp core download --allow-root
+wp core config --dbhost=localhost --dbname=wordpress_database --dbuser=wordpress_user --dbpass=password_pass --allow-root
+chown -R caddy:caddy /var/www/bibica.net/htdocs
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
