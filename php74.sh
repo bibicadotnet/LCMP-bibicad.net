@@ -10,6 +10,9 @@ sudo dnf install screen -y
 sudo dnf install wget -y
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
+#set nameserver google
+echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
+
 # swapfile
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
