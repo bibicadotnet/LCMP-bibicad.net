@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#set nameserver google
+echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
+
 #update
 sudo dnf update -y
 sudo dnf install epel-release -y
@@ -10,8 +13,12 @@ sudo dnf install screen -y
 sudo dnf install wget -y
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
-#set nameserver google
-echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
+# Enable TCP BBR congestion control
+cat <<EOF > /etc/sysctl.conf
+# TCP BBR congestion control
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
 
 # swapfile
 sudo fallocate -l 2G /swapfile
