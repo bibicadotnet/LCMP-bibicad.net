@@ -1,3 +1,6 @@
+#!/bin/bash
+
+#update
 sudo dnf update -y
 sudo dnf install epel-release -y
 sudo dnf install htop -y
@@ -5,6 +8,9 @@ sudo dnf install zip -y
 sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
+timedatectl set-timezone Asia/Ho_Chi_Minh
+
+# swapfile
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
@@ -12,8 +18,12 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo sysctl vm.swappiness=10
+
+#SELINUX=disabled
 sed -i 's@^SELINUX.*@SELINUX=disabled@g' /etc/selinux/config
 setenforce 0
+
+#off firewall
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
@@ -99,6 +109,10 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
+# setup rclone
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
+
+
 # make foder bibica.net
 mkdir -p /var/www/bibica.net/htdocs
 cd /var/www/bibica.net/htdocs
@@ -108,7 +122,11 @@ chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
 
-
+# setup crontab cho wp_cron and simply-static
+crontab -l > simply-static
+echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
+echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
+crontab simply-static
 
 
 
