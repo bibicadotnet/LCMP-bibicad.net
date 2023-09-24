@@ -87,5 +87,5 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/bibi
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 systemctl restart caddy
 
-
+#setup database
 
