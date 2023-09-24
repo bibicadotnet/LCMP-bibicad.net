@@ -138,7 +138,7 @@ echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-sta
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
 
-
+# Monitor and restart PHP, Mysql, Caddy
 
 
 
