@@ -17,6 +17,7 @@ setenforce 0
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
+
 # setup caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
@@ -26,6 +27,7 @@ mkdir -p /etc/caddy/conf.d/
 chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/Caddyfile -O /etc/caddy/Caddyfile
+
 # setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
@@ -48,7 +50,8 @@ flush privileges;
 exit
 EOF
 systemctl stop mariadb
-# setup php 8.2
+
+# setup php 7.4
 dnf config-manager --set-enabled crb
 dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
@@ -59,10 +62,12 @@ dnf install -y php-pecl-imagick-im7 php-pecl-zip php-pecl-mongodb php-pecl-grpc 
 chown root.caddy /var/lib/php/session
 chown root.caddy /var/lib/php/wsdlcache
 chown root.caddy /var/lib/php/opcache
+
 # Optimization
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/php.ini -O /etc/php.ini
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/www.conf -O /etc/php-fpm.d/www.conf
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/my.cnf -O /etc/my.cnf
+
 # start
 systemctl enable mariadb
 systemctl enable php-fpm
@@ -70,3 +75,17 @@ systemctl enable caddy
 systemctl start mariadb
 systemctl start php-fpm
 systemctl start caddy
+
+# setup ssl
+mkdir -p /etc/ssl/
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.pem -O /etc/ssl/bibica.net.pem
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.key -O /etc/ssl/bibica.net.key
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.crt -O /etc/ssl/bibica.net.crt
+
+# setup bibica.net, api.bibica.net
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
+wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+systemctl restart caddy
+
+
+
