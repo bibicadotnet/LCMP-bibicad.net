@@ -131,6 +131,7 @@ wp core config --dbhost=localhost --dbname=wordpress_database --dbuser=wordpress
 chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
+cd
 
 # setup crontab cho wp_cron and simply-static
 crontab -l > simply-static
