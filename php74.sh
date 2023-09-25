@@ -108,11 +108,13 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.
 systemctl restart caddy
 
 #setup database
-mysql -u root -p'Thisisdbrootpassword'
+db_pass="Thisisdbrootpassword"
+mysql -uroot -p${db_pass} 2>/dev/null <<EOF
 CREATE DATABASE wordpress_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 GRANT ALL ON wordpress_database.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password_pass';
 FLUSH PRIVILEGES;
 EXIT;
+EOF
 
 # setup wp-cli
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
