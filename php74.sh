@@ -160,6 +160,4 @@ green() {
   echo -e '\e[32m'$1'\e[m';
 }
 green "Database Root Password: $db_pass_root\nDatabase Name: $db_name\nDatabase User: $db_user\nDatabase Pass: $db_pass"
-green "Database Name $db_name"
-green "Database User $db_user"
-green "Database Name $db_pass"
+
