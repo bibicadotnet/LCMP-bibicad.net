@@ -140,8 +140,8 @@ mysql -uroot -p${db_pass_root} -e "GRANT ALL ON ${db_name}.* TO '${db_user}'@'lo
 # make foder bibica.net
 mkdir -p /var/www/bibica.net/htdocs
 cd /var/www/bibica.net/htdocs
-wp core download --allow-root
-wp core config --dbhost=localhost --dbname=$db_name --dbuser=$db_user --dbpass=$db_pass --allow-root
+# wp core download --allow-root
+# wp core config --dbhost=localhost --dbname=$db_name --dbuser=$db_user --dbpass=$db_pass --allow-root
 chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
