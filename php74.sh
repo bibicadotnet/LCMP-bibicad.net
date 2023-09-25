@@ -107,22 +107,6 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/bibi
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 systemctl restart caddy
 
-#setup database
-#db_pass="Thisisdbrootpassword"
-#mysql -uroot -p${db_pass} 2>/dev/null <<EOF
-#CREATE DATABASE wordpress_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-#GRANT ALL ON wordpress_database.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password_pass';
-#FLUSH PRIVILEGES;
-#EXIT;
-#EOF
-
-db_pass_root="Thisisdbrootpassword"
-db_name="wordpress_database99999"
-db_user="wordpress_user99999"
-db_pass="password_pass99989"
-mysql -uroot -p${db_pass_root} -e "CREATE DATABASE ${db_name} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-mysql -uroot -p${db_pass_root} -e "GRANT ALL ON ${db_name}.* TO '${db_user}'@'localhost' IDENTIFIED BY '${db_pass}'"
-
 # setup wp-cli
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
@@ -145,6 +129,13 @@ echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-sta
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
 
+#setup database
+db_pass_root="Thisisdbrootpassword"
+db_name="wordpress_database99999"
+db_user="wordpress_user99999"
+db_pass="password_pass99989"
+mysql -uroot -p${db_pass_root} -e "CREATE DATABASE ${db_name} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+mysql -uroot -p${db_pass_root} -e "GRANT ALL ON ${db_name}.* TO '${db_user}'@'localhost' IDENTIFIED BY '${db_pass}'"
 
 # make foder bibica.net
 mkdir -p /var/www/bibica.net/htdocs
