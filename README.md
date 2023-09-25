@@ -3,6 +3,8 @@
 Note: Phần lớn các câu lệnh cài đặt đều lấy từ bài viết hướng dẫn của Teddysun
 
 Các câu lệnh được viết và thử nghiệm trên AlmaLinux 9 (không chắc có thể chạy trên các OS khác không)
+
+Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cài đặt LCMP
 ```shell
 sudo wget --no-check-certificate https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
