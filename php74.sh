@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set nameserver google
+#set nameserver google, cloudflare
 echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
 
 #update
