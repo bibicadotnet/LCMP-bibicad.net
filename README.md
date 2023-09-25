@@ -9,5 +9,5 @@ Các câu lệnh được viết và thử nghiệm trên AlmaLinux 9 (không ch
 VPS 1 GB RAM UpCloud - Singapore
 ## Cài đặt LCMP
 ```shell
-sudo wget --no-check-certificate https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
+sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
