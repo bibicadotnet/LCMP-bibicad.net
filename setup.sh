@@ -130,14 +130,6 @@ echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-sta
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
 
-# Bypass Oracle VM.Standard.A1.Flex
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/NeverIdle-Oracle/master/VM.Standard.A1.Flex.4GB.RAM.sh -O /usr/local/bin/bypass_oracle.sh
-chmod +x /usr/local/bin/bypass_oracle.sh
-nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &
-crontab -l > bypass_oracle
-echo "@reboot nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &" >> bypass_oracle
-crontab bypass_oracle
-
 # setup database
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
