@@ -1,4 +1,4 @@
-# LCMP AlmaLinux 9
+# LCMP AlmaLinux 9 - Caddy - PHP - MariaDB
 1. Login root
 2. Cài đặt wget
 <pre class="EnlighterJSRAW" data-enlighter-language="generic">sudo dnf install wget -y</pre>

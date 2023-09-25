@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#set nameserver google, cloudflare
+# Set nameserver google, cloudflare
 echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
 
-#update
+# Update
 sudo dnf update -y
 sudo dnf install epel-release -y
 sudo dnf install htop -y
@@ -11,6 +11,8 @@ sudo dnf install zip -y
 sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
+
+# Set time Viet Name
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
 # Enable TCP BBR congestion control
@@ -29,16 +31,16 @@ sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo sysctl vm.swappiness=10
 
-#SELINUX=disabled
+# SELINUX=disabled
 sed -i 's@^SELINUX.*@SELINUX=disabled@g' /etc/selinux/config
 setenforce 0
 
-#off firewall
+# Off Firewall
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask --now firewalld
 
-# setup caddy
+# Setup Caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
 mkdir -p /data/www/default
@@ -48,7 +50,7 @@ chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/Caddyfile -O /etc/caddy/Caddyfile
 
-# setup mariadb 10.11
+# Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
@@ -56,10 +58,10 @@ dnf install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared Maria
 lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
 sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
 systemctl start mariadb
-db_pass="Thisisdbrootpassword"
-mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
-mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass}\" with grant option;"
-mysql -uroot -p${db_pass} 2>/dev/null <<EOF
+db_pass_root="Thisisdbrootpassword"
+mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass_root}\" with grant option;"
+mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass_root}\" with grant option;"
+mysql -uroot -p${db_pass_root} 2>/dev/null <<EOF
 drop database if exists test;
 delete from mysql.db where user='';
 delete from mysql.db where user='PUBLIC';
@@ -71,7 +73,7 @@ exit
 EOF
 systemctl stop mariadb
 
-# setup php 7.4
+# Setup php 7.4
 dnf config-manager --set-enabled crb
 dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
@@ -129,19 +131,18 @@ echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-sta
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
 
-#setup database
-db_pass_root="Thisisdbrootpassword"
-db_name="wordpress_database99999"
-db_user="wordpress_user99999"
-db_pass="password_pass99989"
+# setup database
+db_name="wordpress_database_name_99999"
+db_user="wordpress_user_99999"
+db_pass="password_pass_99999"
 mysql -uroot -p${db_pass_root} -e "CREATE DATABASE ${db_name} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 mysql -uroot -p${db_pass_root} -e "GRANT ALL ON ${db_name}.* TO '${db_user}'@'localhost' IDENTIFIED BY '${db_pass}'"
 
 # make foder bibica.net
 mkdir -p /var/www/bibica.net/htdocs
 cd /var/www/bibica.net/htdocs
-# wp core download --allow-root
-# wp core config --dbhost=localhost --dbname=$db_name --dbuser=$db_user --dbpass=$db_pass --allow-root
+wp core download --allow-root
+wp core config --dbhost=localhost --dbname=$db_name --dbuser=$db_user --dbpass=$db_pass --allow-root
 chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
