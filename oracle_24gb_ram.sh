@@ -22,15 +22,6 @@ net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 EOF
 
-# swapfile
-sudo fallocate -l 2G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-sudo sysctl vm.swappiness=10
-
 # SELINUX=disabled
 sed -i 's@^SELINUX.*@SELINUX=disabled@g' /etc/selinux/config
 setenforce 0
@@ -86,9 +77,9 @@ chown root.caddy /var/lib/php/wsdlcache
 chown root.caddy /var/lib/php/opcache
 
 # Optimization PHP, MariaDB
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/php.ini -O /etc/php.ini
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/www.conf -O /etc/php-fpm.d/www.conf
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/my.cnf -O /etc/my.cnf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/24g_ram_php.ini -O /etc/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/24g_ram_www.conf -O /etc/php-fpm.d/www.conf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/24g_ram_my.conf -O /etc/my.cnf
 
 # start
 systemctl enable mariadb
