@@ -48,7 +48,7 @@ mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
 
 # Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
@@ -86,9 +86,9 @@ chown root.caddy /var/lib/php/wsdlcache
 chown root.caddy /var/lib/php/opcache
 
 # Optimization PHP, MariaDB
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/php.ini -O /etc/php.ini
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/www.conf -O /etc/php-fpm.d/www.conf
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/my.cnf -O /etc/my.cnf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/php.ini -O /etc/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/www.conf -O /etc/php-fpm.d/www.conf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/my.cnf -O /etc/my.cnf
 
 # start
 systemctl enable mariadb
@@ -100,13 +100,12 @@ systemctl start caddy
 
 # setup ssl
 mkdir -p /etc/ssl/
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.pem -O /etc/ssl/bibica.net.pem
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.key -O /etc/ssl/bibica.net.key
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/bibica.net/main/bibica.net.crt -O /etc/ssl/bibica.net.crt
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.key -O /etc/ssl/bibica.net.key
 
 # setup bibica.net, api.bibica.net
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
-wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
@@ -118,7 +117,7 @@ mv wp-cli.phar /usr/local/bin/wp
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
 # Monitor and restart PHP, Mysql, Caddy
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP/main/monitor/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
 chmod +x /usr/local/bin/monitor_service_restart.sh
 nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
 crontab -l > monitor_service_restart
