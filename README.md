@@ -7,9 +7,10 @@ Các câu lệnh được viết và thử nghiệm trên AlmaLinux 9 (không ch
 Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cấu hình sử dụng
 VPS 1 GB RAM UpCloud - Singapore
-
-Có thể chạy được trên x86_64 và ARM64
 ## Cài đặt LCMP
+Có thể chạy được trên x86_64 và ARM64
 ```shell
 sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
+## Releem
+Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
