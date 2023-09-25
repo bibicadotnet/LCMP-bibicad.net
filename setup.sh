@@ -12,7 +12,7 @@ sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
 
-# Set time Viet Name
+# Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
 # Enable TCP BBR congestion control
@@ -129,6 +129,14 @@ crontab -l > simply-static
 echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
+
+# Bypass Oracle VM.Standard.A1.Flex
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/NeverIdle-Oracle/master/VM.Standard.A1.Flex.4GB.RAM.sh -O /usr/local/bin/bypass_oracle.sh
+chmod +x /usr/local/bin/bypass_oracle.sh
+nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &
+crontab -l > bypass_oracle
+echo "@reboot nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &" >> bypass_oracle
+crontab bypass_oracle
 
 # setup database
 db_name="wordpress_database_name_99999"
