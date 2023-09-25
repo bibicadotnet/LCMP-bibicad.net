@@ -108,13 +108,20 @@ wget https://raw.githubusercontent.com/bibicadotnet/LCMP/main/domain-config/api.
 systemctl restart caddy
 
 #setup database
-db_pass="Thisisdbrootpassword"
-mysql -uroot -p${db_pass} 2>/dev/null <<EOF
-CREATE DATABASE wordpress_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-GRANT ALL ON wordpress_database.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password_pass';
-FLUSH PRIVILEGES;
-EXIT;
-EOF
+#db_pass="Thisisdbrootpassword"
+#mysql -uroot -p${db_pass} 2>/dev/null <<EOF
+#CREATE DATABASE wordpress_database DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+#GRANT ALL ON wordpress_database.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password_pass';
+#FLUSH PRIVILEGES;
+#EXIT;
+#EOF
+
+db_pass_root="Thisisdbrootpassword"
+db_name="wordpress_database99999"
+db_user="wordpress_user99999"
+db_pass="password_pass99989"
+mysql -uroot -p${db_pass_root} -e "CREATE DATABASE ${db_name} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+mysql -uroot -p${db_pass_root} -e "GRANT ALL ON ${db_name}.* TO '${db_user}'@'localhost' IDENTIFIED BY '${db_pass}'"
 
 # setup wp-cli
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -143,7 +150,16 @@ crontab simply-static
 mkdir -p /var/www/bibica.net/htdocs
 cd /var/www/bibica.net/htdocs
 wp core download --allow-root
-wp core config --dbhost=localhost --dbname=wordpress_database --dbuser=wordpress_user --dbpass=password_pass --allow-root
+wp core config --dbhost=localhost --dbname=$db_name --dbuser=$db_user --dbpass=$db_pass --allow-root
 chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
+
+# show info database
+green() {
+  echo -e '\e[32m'$1'\e[m';
+}
+green "Database Root Password: $db_pass_root\nDatabase Name: $db_name\nDatabase User: $db_user\nDatabase Pass: $db_pass"
+green "Database Name $db_name"
+green "Database User $db_user"
+green "Database Name $db_pass"
