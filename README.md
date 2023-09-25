@@ -1,6 +1,6 @@
 # LCMP AlmaLinux 9 - Caddy - PHP - MariaDB
 
-Note: Phần lớn các câu lệnh cài đặt đều lấy từ bài viết hướng dẫn của Teddysun
+Note: Phần lớn các câu lệnh cài đặt đều lấy từ bài viết hướng dẫn của <a href="https://teddysun.com/701.html" target="_blank" rel="noopener">Teddysun</a>
 
 Các câu lệnh được viết và thử nghiệm trên AlmaLinux 9 (không chắc có thể chạy trên các OS khác không)
 
