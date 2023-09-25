@@ -6,7 +6,7 @@ Các câu lệnh được viết và thử nghiệm trên AlmaLinux 9 (không ch
 
 Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cấu hình sử dụng
-VPS 1 GB RAM UpCloud
+VPS 1 GB RAM UpCloud - Singapore
 ## Cài đặt LCMP
 ```shell
 sudo wget --no-check-certificate https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
