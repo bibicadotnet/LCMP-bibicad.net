@@ -89,6 +89,10 @@ systemctl start mariadb
 systemctl start php-fpm
 systemctl start caddy
 
+# Create symbolic link
+ln -s /var/www /root/
+ln -s /etc/caddy /root/
+
 # setup ssl
 mkdir -p /etc/ssl/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
