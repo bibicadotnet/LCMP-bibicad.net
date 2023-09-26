@@ -90,6 +90,10 @@ wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/www.conf -O /etc/php-fpm.d/www.conf
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/my.cnf -O /etc/my.cnf
 
+# Create symbolic link
+ln -s /var/www /root/
+ln -s /etc/caddy /root/
+
 # start
 systemctl enable mariadb
 systemctl enable php-fpm
