@@ -1,4 +1,4 @@
-# LCMP - AlmaLinux 9 - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
+# AlmaLinux 9 - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
 
 Note: Phần lớn các câu lệnh cài đặt đều lấy từ bài viết hướng dẫn của <a href="https://teddysun.com/701.html" target="_blank" rel="noopener">Teddysun</a>
 
