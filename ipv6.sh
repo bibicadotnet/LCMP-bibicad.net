@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set nameserver trex.fi
-echo -e "nameserver 2001:67c:2b0::4\nnameserver 2001:67c:2b0::6" > /etc/resolv.conf
+#echo -e "nameserver 2001:67c:2b0::4\nnameserver 2001:67c:2b0::6" > /etc/resolv.conf
 
 # Update
 sudo dnf update -y
