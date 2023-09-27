@@ -8,15 +8,15 @@ Các câu lệnh được thử nghiệm trên AlmaLinux 9 (không chắc có th
 ## Cấu hình sử dụng
 VPS 1 GB RAM UpCloud - Singapore
 ## Cài đặt LCMP
-**Cài đặt wget**
+### Cài đặt wget
 ```shell
 sudo dnf install wget -y
 ```
-**Chạy trên x86_64, ARM64 (bản public)**
+### Chạy trên x86_64, ARM64 (bản public)
 ```shell
 sudo wget https://go.bibica.net/lcmp -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
-**Chạy trên x86_64, ARM64, only IPv6 (bản public)**
+### Chạy trên x86_64, ARM64, only IPv6 (bản public)
 ```shell
 sudo wget https://go.bibica.net/lcmp_ipv6 -O lcmp_ipv6.sh && sudo chmod +x lcmp_ipv6.sh && sudo ./lcmp_ipv6.sh
 ```
