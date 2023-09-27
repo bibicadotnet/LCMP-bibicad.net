@@ -16,7 +16,7 @@ Cài đặt cho bibica.net
 ```shell
 sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
-**Chạy trên x86_64, ARM64 (bản public)**
+**<span style="color: #993300;">Chạy trên x86_64, ARM64 (bản public)</span>**
 ```shell
 sudo wget https://go.bibica.net/lcmp -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
