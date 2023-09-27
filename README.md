@@ -12,13 +12,13 @@ Cài đặt wget
 ```shell
 sudo dnf install wget -y
 ```
-Chạy trên x86_64 và ARM64
+Cài đặt cho bibica.net
 ```shell
 sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
 Chạy trên x86_64, ARM64, IPv6 (bản public)
 ```shell
-sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ipv6.sh -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
+sudo wget https://go.bibica.net/lcmp -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
