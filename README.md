@@ -8,7 +8,7 @@ Các câu lệnh được thử nghiệm trên AlmaLinux 9 (không chắc có th
 ## Cấu hình sử dụng
 VPS 1 GB RAM UpCloud - Singapore
 ## Cài đặt LCMP
-Cài đặt wget
+**Cài đặt wget**
 ```shell
 sudo dnf install wget -y
 ```
@@ -16,7 +16,7 @@ Cài đặt cho bibica.net
 ```shell
 sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
-Chạy trên x86_64, ARM64 (bản public)
+**Chạy trên x86_64, ARM64 (bản public)**
 ```shell
 sudo wget https://go.bibica.net/lcmp -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
