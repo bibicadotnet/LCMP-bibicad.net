@@ -16,7 +16,7 @@ Chạy trên x86_64 và ARM64
 ```shell
 sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
-Chạy trên IPv6
+Chạy trên x86_64, ARM64, IPv6 (bản public)
 ```shell
 sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ipv6.sh -O ipv6.sh && sudo chmod +x ipv6.sh && sudo ./ipv6.sh
 ```
