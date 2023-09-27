@@ -18,7 +18,7 @@ sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh &
 ```
 Chạy trên x86_64, ARM64, IPv6 (bản public)
 ```shell
-sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ipv6.sh -O ipv6.sh && sudo chmod +x ipv6.sh && sudo ./ipv6.sh
+sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ipv6.sh -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
