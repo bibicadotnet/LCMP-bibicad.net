@@ -12,17 +12,17 @@ VPS 1 GB RAM UpCloud - Singapore
 ```shell
 sudo dnf install wget -y
 ```
-Cài đặt cho bibica.net
-```shell
-sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
-```
 **Chạy trên x86_64, ARM64 (bản public)**
 ```shell
 sudo wget https://go.bibica.net/lcmp -O lcmp.sh && sudo chmod +x lcmp.sh && sudo ./lcmp.sh
 ```
-Chạy trên x86_64, ARM64, only IPv6 (bản public)
+**Chạy trên x86_64, ARM64, only IPv6 (bản public)**
 ```shell
 sudo wget https://go.bibica.net/lcmp_ipv6 -O lcmp_ipv6.sh && sudo chmod +x lcmp_ipv6.sh && sudo ./lcmp_ipv6.sh
+```
+Cài đặt cho bibica.net
+```shell
+sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
