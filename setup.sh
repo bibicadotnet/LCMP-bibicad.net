@@ -124,6 +124,7 @@ sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
 
 #setup releem
+db_pass_root="Thisisdbrootpassword"
 releem_api="c734e3de-3b21-4c29-96c4-26f3cdaf902f"
 mysql -uroot -p${db_pass_root}
 CREATE USER 'releem'@'%' identified by '[Password]';
