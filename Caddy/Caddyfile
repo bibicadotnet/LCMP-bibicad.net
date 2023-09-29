@@ -4,7 +4,7 @@
 :80 {
     # Set this path to your site's directory.
     root * /data/www/default
-    encode gzip
+    encode zstd gzip
     # Enable the static file server.
     file_server {
         index index.html
