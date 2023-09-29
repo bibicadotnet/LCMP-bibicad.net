@@ -122,6 +122,24 @@ mv wp-cli.phar /usr/local/bin/wp
 # setup rclone
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
+
+#setup releem
+releem_api="c734e3de-3b21-4c29-96c4-26f3cdaf902f"
+mysql -uroot -p${db_pass_root}
+CREATE USER 'releem'@'%' identified by '[Password]';
+GRANT PROCESS, REPLICATION CLIENT, SHOW VIEW ON *.* TO 'releem'@'%';
+GRANT SELECT ON performance_schema.events_statements_summary_by_digest TO 'releem'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+EOF
+yes y| RELEEM_MYSQL_PASSWORD='[Password]' RELEEM_MYSQL_LOGIN='releem' RELEEM_MYSQL_MEMORY_LIMIT=0 RELEEM_API_KEY=${releem_api} RELEEM_CRON_ENABLE=1 bash -c "$(curl -L https://releem.s3.amazonaws.com/v2/install.sh)"
+
+# setup crontab cho releem (Recommended Configuration)
+crontab -l > releem
+echo "0 3 * * * yes y| /bin/bash /opt/releem/mysqlconfigurer.sh -a" >> releem
+crontab releem
+
+
 # Monitor and restart PHP, Mysql, Caddy
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
 chmod +x /usr/local/bin/monitor_service_restart.sh
