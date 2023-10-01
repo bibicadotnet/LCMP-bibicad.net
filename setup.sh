@@ -43,6 +43,9 @@ sudo systemctl mask --now firewalld
 # Setup Caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
+caddy add-package github.com/caddyserver/cache-handler
+caddy add-package github.com/caddyserver/replace-response
+caddy add-package github.com/ueffel/caddy-brotli
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
