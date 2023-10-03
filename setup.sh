@@ -45,6 +45,7 @@ dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
 caddy add-package github.com/caddyserver/cache-handler
 caddy add-package github.com/caddyserver/replace-response
+caddy add-package github.com/sillygod/cdp-cache
 
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
