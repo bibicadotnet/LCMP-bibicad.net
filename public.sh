@@ -43,6 +43,8 @@ sudo systemctl mask --now firewalld
 # Setup Caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
+caddy add-package github.com/sillygod/cdp-cache
+
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
@@ -107,9 +109,13 @@ mkdir -p /etc/ssl/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.key -O /etc/ssl/bibica.net.key
 
-# setup bibica.net, api.bibica.net
+# setup bibica.net, api.bibica.net, i0.bibica.net, i.bibica.net
+mkdir -p /var/www/bibica.net/cache
+chown -R caddy:caddy /var/www/bibica.net/cache
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i0.bibica.net.conf -O /etc/caddy/conf.d/i0.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i.bibica.net.conf -O /etc/caddy/conf.d/i.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
@@ -117,7 +123,17 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
+# setup rclone
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
+
+# setup crontab cho wp_cron and simply-static
+crontab -l > simply-static
+echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
+echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
+crontab simply-static
+
 # setup database
+db_pass_root="Thisisdbrootpassword"
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
 db_pass="password_pass_99999"
