@@ -1,7 +1,8 @@
 {
-	order cache before rewrite
-	cache
+    order http_cache before reverse_proxy
 }
+
+
 
 
 :80 {
