@@ -117,9 +117,6 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-# setup rclone
-sudo -v ; curl https://rclone.org/install.sh | sudo bash
-
 # setup database
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
