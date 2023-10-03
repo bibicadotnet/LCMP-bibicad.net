@@ -126,18 +126,18 @@ mv wp-cli.phar /usr/local/bin/wp
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
 # Monitor and restart PHP, Mysql, Caddy
-#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
-#chmod +x /usr/local/bin/monitor_service_restart.sh
-#nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
-#crontab -l > monitor_service_restart
-#echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
-#crontab monitor_service_restart
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
+chmod +x /usr/local/bin/monitor_service_restart.sh
+nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
+crontab -l > monitor_service_restart
+echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
+crontab monitor_service_restart
 
 # setup crontab cho wp_cron and simply-static
-#crontab -l > simply-static
-#echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
-#echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
-#crontab simply-static
+crontab -l > simply-static
+echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
+echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
+crontab simply-static
 
 # setup database
 db_name="wordpress_database_name_99999"
