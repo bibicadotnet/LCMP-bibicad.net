@@ -56,10 +56,10 @@ wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_rep
 chmod +x mariadb_repo_setup.sh
 ./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
 sudo apt install mariadb-server -y
-db_pass="Thisisdbrootpassword"
-mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass}\" with grant option;"
-mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass}\" with grant option;"
-mysql -uroot -p${db_pass} 2>/dev/null <<EOF
+db_pass_root="Thisisdbrootpassword"
+mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass_root}\" with grant option;"
+mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass_root}\" with grant option;"
+mysql -uroot -p${db_pass_root} 2>/dev/null <<EOF
 drop database if exists test;
 delete from mysql.db where user='';
 delete from mysql.db where user='PUBLIC';
@@ -133,7 +133,7 @@ echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 
 crontab simply-static
 
 # setup database
-db_pass="Thisisdbrootpassword"
+db_pass_root="Thisisdbrootpassword"
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
 db_pass="password_pass_99999"
