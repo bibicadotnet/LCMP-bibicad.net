@@ -49,7 +49,7 @@ mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
 
 # Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
