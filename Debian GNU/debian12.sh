@@ -133,6 +133,7 @@ echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 
 crontab simply-static
 
 # setup database
+db_pass="Thisisdbrootpassword"
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
 db_pass="password_pass_99999"
