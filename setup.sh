@@ -11,6 +11,7 @@ sudo dnf install zip -y
 sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
+sudo dnf nano wget -y
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
@@ -54,10 +55,10 @@ chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
 
-# Setup mariadb 10.11
+# Setup mariadb 10.5
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
-./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
+./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.5
 dnf install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared MariaDB-backup
 lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
 sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
