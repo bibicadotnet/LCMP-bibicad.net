@@ -11,7 +11,7 @@ sudo dnf install zip -y
 sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
-sudo dnf nano wget -y
+sudo dnf install nano -y
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
