@@ -29,4 +29,4 @@ sudo wget https://go.bibica.net/server -O server.sh && sudo chmod +x server.sh &
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
 ## Update
-08/10/2023: sử dụng cấu hình MySQL từ CloudPanel
+08/10/2023: sử dụng cấu hình MySQL từ CloudPanel (hiệu năng liên quan tới database tốt hơn)
