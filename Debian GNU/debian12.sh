@@ -48,7 +48,6 @@ mkdir -p /etc/caddy/conf.d/
 chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
 chown -R caddy:caddy /etc/caddy/
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
 systemctl stop caddy
 
 # Setup mariadb 10.11
@@ -79,24 +78,23 @@ sudo apt update && sudo apt install php7.4 -y
 sudo apt install php7.4-fpm -y
 sudo apt-get install -y php7.4-cli php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-opcache -y
 sudo php-fpm7.4 -t
-
-# Optimization PHP, MariaDB
-systemctl stop caddy
-systemctl stop mariadb
 systemctl stop php7.4-fpm
 
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
+# Optimization PHP, MariaDB
+
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
 
 # Create symbolic link
 ln -s /var/www /root/
 ln -s /etc/caddy /root/
 
 # start
-systemctl enable mariadb
-systemctl enable php7.4-fpm
-systemctl enable caddy
+#systemctl enable mariadb
+#systemctl enable php7.4-fpm
+#systemctl enable caddy
 systemctl start mariadb
 systemctl start php7.4-fpm
 systemctl start caddy
