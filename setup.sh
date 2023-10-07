@@ -17,11 +17,11 @@ sudo dnf install nano -y
 timedatectl set-timezone Asia/Ho_Chi_Minh
 
 # Enable TCP BBR congestion control
-#cat <<EOF > /etc/sysctl.conf
+cat <<EOF > /etc/sysctl.conf
 # TCP BBR congestion control
-#net.core.default_qdisc=fq
-#net.ipv4.tcp_congestion_control=bbr
-#EOF
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
 
 # swapfile
 sudo fallocate -l 2G /swapfile
