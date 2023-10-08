@@ -46,13 +46,13 @@ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt update && sudo apt install caddy -y
-caddy add-package github.com/sillygod/cdp-cache
+#caddy add-package github.com/sillygod/cdp-cache
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
-#chown -R caddy:caddy /etc/caddy/
+chown -R caddy:caddy /etc/caddy/
 
 # Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
