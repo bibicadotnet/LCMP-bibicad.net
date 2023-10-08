@@ -86,9 +86,14 @@ chown root.caddy /var/lib/php/opcache
 
 # Delete Apache
 sudo service apache2 stop
-sudo apt purge apache2 apache2-utils apache2.2-bin apache2-common -y
-sudo apt remove apache2 apache2-utils apache2.2-bin apache2-common -y
-sudo apt autoremove apache2 apache2-utils apache2.2-bin apache2-common -y
+sudo apt remove --autoremove apache2 -y
+sudo apt purge apache2 apache2-utils -y
+sudo apt remove apache2 apache2-utils -y
+sudo apt autoremove apache2 apache2-utils -y
+sudo rm -r /usr/sbin/apache2 
+sudo rm -r /usr/lib/apache2
+sudo rm -r /etc/apache2
+sudo rm -r /usr/share/man/man8/apache2.8.gz
 
 # Optimization PHP, MariaDB
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
