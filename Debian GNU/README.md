@@ -11,7 +11,7 @@ sudo apt update && sudo apt upgrade -y && sudo reboot
 ```
 ### Chạy trên x86_64, ARM64
 ```shell
-sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/debian12.sh -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
+sudo wget https://go.bibica.net/debian -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
