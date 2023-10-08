@@ -91,9 +91,9 @@ wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
 
 # start
-#systemctl enable mariadb
-#systemctl enable php7.4-fpm
-#systemctl enable caddy
+systemctl enable mariadb
+systemctl enable php7.4-fpm
+systemctl enable caddy
 systemctl start mariadb
 systemctl start php7.4-fpm
 systemctl start caddy
