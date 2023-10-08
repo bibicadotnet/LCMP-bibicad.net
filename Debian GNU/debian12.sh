@@ -52,7 +52,7 @@ mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
 chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
-chown -R caddy:caddy /etc/caddy/
+#chown -R caddy:caddy /etc/caddy/
 
 # Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
@@ -94,6 +94,7 @@ sudo rm -r /usr/sbin/apache2
 sudo rm -r /usr/lib/apache2
 sudo rm -r /etc/apache2
 sudo rm -r /usr/share/man/man8/apache2.8.gz
+sudo rm -r /etc/php/7.4/apache2
 
 # Optimization PHP, MariaDB
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
