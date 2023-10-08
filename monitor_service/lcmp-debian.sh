@@ -10,7 +10,7 @@ CHAT_ID="489842337"
 if ! systemctl is-active --quiet mariadb.service; then
   # If not running, restart and send message to Telegram
     sudo systemctl restart mariadb 
-    MESSAGE="LCMP - MySQL Mariadb v10.5 Service was down. Restarting now"
+    MESSAGE="Debian - MySQL Mariadb v10.11 Service was down. Restarting now"
     curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d chat_id=$CHAT_ID -d text="$MESSAGE"
 fi
 
@@ -18,7 +18,7 @@ fi
 if ! systemctl is-active --quiet caddy.service; then
   # If not running, restart and send message to Telegram
     sudo systemctl restart caddy
-    MESSAGE="LCMP - Caddy Service was down. Restarting now"
+    MESSAGE="Debian - Caddy Service was down. Restarting now"
     curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d chat_id=$CHAT_ID -d text="$MESSAGE"
 fi
 
@@ -26,7 +26,7 @@ fi
 if ! systemctl is-active --quiet php-fpm.service; then
   # If not running, restart and send message to Telegram
     sudo systemctl restart php-fpm
-    MESSAGE="LCMP - PHP v7.4 Service was down. Restarting now"
+    MESSAGE="Debian - PHP v7.4 Service was down. Restarting now"
     curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d chat_id=$CHAT_ID -d text="$MESSAGE"
 fi
 
