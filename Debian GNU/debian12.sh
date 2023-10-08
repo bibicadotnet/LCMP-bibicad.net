@@ -82,12 +82,6 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /et
 sudo apt update && sudo apt install php7.4 -y
 sudo apt-get install -y php7.4-cli php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-opcache -y
 sudo apt install php7.4-fpm -y
-mkdir -p /var/lib/php/session
-mkdir -p /var/lib/php/wsdlcache
-mkdir -p /var/lib/php/opcache
-chown root:caddy /var/lib/php/session
-chown root:caddy /var/lib/php/wsdlcache
-chown root:caddy /var/lib/php/opcache
 
 # Delete Apache
 sudo service apache2 stop
