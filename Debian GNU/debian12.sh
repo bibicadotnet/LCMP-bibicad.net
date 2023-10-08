@@ -109,8 +109,8 @@ sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/
 # setup bibica.net, api.bibica.net, i0.bibica.net, i.bibica.net
 mkdir -p /var/www/bibica.net/cache
 chown -R caddy:caddy /var/www/bibica.net/cache
-# sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
-# sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 # sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i0.bibica.net.conf -O /etc/caddy/conf.d/i0.bibica.net.conf
 # sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i.bibica.net.conf -O /etc/caddy/conf.d/i.bibica.net.conf
 systemctl restart caddy
