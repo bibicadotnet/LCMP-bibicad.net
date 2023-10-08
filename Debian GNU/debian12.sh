@@ -1,4 +1,23 @@
 #!/bin/bash
+# Set locale
+locale-gen en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Set nameserver google, cloudflare
+echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
+
+# Enable TCP BBR congestion control
+cat <<EOF > /etc/sysctl.conf
+# TCP BBR congestion control
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+net.ipv4.tcp_rmem = 8192 262144 536870912
+net.ipv4.tcp_wmem = 4096 16384 536870912
+net.ipv4.tcp_adv_win_scale = -2
+net.ipv4.tcp_collapse_max_bytes = 6291456
+net.ipv4.tcp_notsent_lowat = 131072
+EOF
 
 # update 
 sudo apt update -y
@@ -8,19 +27,8 @@ sudo apt install unzip -y
 sudo apt install screen -y
 sudo apt install wget -y
 
-locale-gen en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
-
-# Enable TCP BBR congestion control
-cat <<EOF > /etc/sysctl.conf
-# TCP BBR congestion control
-net.core.default_qdisc=fq
-net.ipv4.tcp_congestion_control=bbr
-EOF
 
 # setup swapfile
 sudo fallocate -l 2G /swapfile
@@ -30,11 +38,6 @@ sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo sysctl vm.swappiness=10
-
-# off firewall
-sudo systemctl stop firewalld
-sudo systemctl disable firewalld
-sudo systemctl mask --now firewalld
 
 # setup caddy
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
