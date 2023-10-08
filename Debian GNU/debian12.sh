@@ -12,11 +12,6 @@ cat <<EOF > /etc/sysctl.conf
 # TCP BBR congestion control
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
-net.ipv4.tcp_rmem = 8192 262144 536870912
-net.ipv4.tcp_wmem = 4096 16384 536870912
-net.ipv4.tcp_adv_win_scale = -2
-net.ipv4.tcp_collapse_max_bytes = 6291456
-net.ipv4.tcp_notsent_lowat = 131072
 EOF
 
 # update 
@@ -111,20 +106,12 @@ mkdir -p /var/www/bibica.net/cache
 chown -R caddy:caddy /var/www/bibica.net/cache
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
-# sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i0.bibica.net.conf -O /etc/caddy/conf.d/i0.bibica.net.conf
-# sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i.bibica.net.conf -O /etc/caddy/conf.d/i.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
-
-# setup crontab cho wp_cron and simply-static
-crontab -l > simply-static
-echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-static run --allow-root" >> simply-static
-echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
-crontab simply-static
 
 # setup database
 db_pass_root="Thisisdbrootpassword"
