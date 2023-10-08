@@ -1,5 +1,5 @@
 {
-    order http_cache before reverse_proxy
+    admin off
 }
 
 :80 {
