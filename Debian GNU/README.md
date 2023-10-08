@@ -1,9 +1,4 @@
 # LCMP: Debian GNU/Linux 12 (Bookworm) - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
-
-Phần lớn các câu lệnh cài đặt đều lấy từ bài hướng dẫn của <a href="https://teddysun.com/701.html" target="_blank" rel="noopener">Teddysun</a>
-
-Các câu lệnh được thử nghiệm trên AlmaLinux 9 (không chắc có thể chạy trên các OS khác không)
-
 Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cấu hình sử dụng
 OS: Debian GNU/Linux 12 (Bookworm) 
