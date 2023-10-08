@@ -53,7 +53,6 @@ mkdir -p /etc/caddy/conf.d/
 chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
 chown -R caddy:caddy /etc/caddy/
-systemctl stop caddy
 
 # Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
@@ -73,7 +72,6 @@ delete from mysql.user where user='PUBLIC';
 flush privileges;
 exit
 EOF
-systemctl stop mariadb
 
 # Setup php 7.4
 sudo apt install -y apt-transport-https lsb-release ca-certificates wget 
@@ -82,35 +80,38 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /et
 sudo apt update && sudo apt install php7.4 -y
 sudo apt-get install -y php7.4-cli php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-opcache -y
 sudo apt install php7.4-fpm -y
-systemctl stop php7.4-fpm
+
+sudo service apache2 stop
+sudo apt purge apache2 apache2-utils apache2.2-bin apache2-common -y
+sudo apt remove apache2 apache2-utils apache2.2-bin apache2-common -y
+sudo apt autoremove apache2 apache2-utils apache2.2-bin apache2-common -y
+
 
 # Optimization PHP, MariaDB
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
+systemctl restart mariadb
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
+systemctl restart php7.4-fpm
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
+systemctl restart caddy
 
-# start
+# Auto start
 systemctl enable mariadb
 systemctl enable php7.4-fpm
 systemctl enable caddy
-systemctl start mariadb
-systemctl start php7.4-fpm
-systemctl start caddy
-systemctl restart mariadb
-systemctl restart php7.4-fpm
-systemctl restart caddy
 
 # setup ssl
 mkdir -p /etc/ssl/
+chown -R caddy:caddy /etc/ssl/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.key -O /etc/ssl/bibica.net.key
 
 # setup bibica.net, api.bibica.net, i0.bibica.net, i.bibica.net
 mkdir -p /var/www/bibica.net/cache
 chown -R caddy:caddy /var/www/bibica.net/cache
-#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
-#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
