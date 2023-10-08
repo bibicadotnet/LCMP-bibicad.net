@@ -27,6 +27,7 @@ sudo apt install unzip -y
 sudo apt install screen -y
 sudo apt install wget -y
 sudo apt install curl -y
+sudo apt install gpg -y
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
@@ -84,15 +85,10 @@ sudo apt install php7.4-fpm -y
 systemctl stop php7.4-fpm
 
 # Optimization PHP, MariaDB
-
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
-
-# Create symbolic link
-ln -s /var/www /root/
-ln -s /etc/caddy /root/
 
 # start
 #systemctl enable mariadb
@@ -104,6 +100,10 @@ systemctl start caddy
 systemctl restart mariadb
 systemctl restart php7.4-fpm
 systemctl restart caddy
+
+# Create symbolic link
+ln -s /var/www /root/
+ln -s /etc/caddy /root/
 
 # setup ssl
 mkdir -p /etc/ssl/
@@ -123,9 +123,6 @@ systemctl restart caddy
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
-
-# setup rclone
-sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
 # setup crontab cho wp_cron and simply-static
 crontab -l > simply-static
