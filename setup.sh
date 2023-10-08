@@ -154,7 +154,7 @@ echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 
 crontab simply-static
 
 # setup releem
-yes y| RELEEM_MYSQL_MEMORY_LIMIT=0 RELEEM_API_KEY=c734e3de-3b21-4c29-96c4-26f3cdaf902f RELEEM_MYSQL_ROOT_PASSWORD='Thisisdbrootpassword' RELEEM_CRON_ENABLE=1 bash -c "$(curl -L https://releem.s3.amazonaws.com/v2/install.sh)"
+# yes y| RELEEM_MYSQL_MEMORY_LIMIT=0 RELEEM_API_KEY=c734e3de-3b21-4c29-96c4-26f3cdaf902f RELEEM_MYSQL_ROOT_PASSWORD='Thisisdbrootpassword' RELEEM_CRON_ENABLE=1 bash -c "$(curl -L https://releem.s3.amazonaws.com/v2/install.sh)"
 
 # setup database
 db_pass_root="Thisisdbrootpassword"
