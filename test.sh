@@ -11,6 +11,7 @@ sudo dnf install zip -y
 sudo dnf install unzip -y
 sudo dnf install screen -y
 sudo dnf install wget -y
+sudo dnf install nano -y
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
@@ -20,7 +21,21 @@ cat <<EOF > /etc/sysctl.conf
 # TCP BBR congestion control
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
+net.ipv4.tcp_rmem = 8192 262144 536870912
+net.ipv4.tcp_wmem = 4096 16384 536870912
+net.ipv4.tcp_adv_win_scale = -2
+net.ipv4.tcp_collapse_max_bytes = 6291456
+net.ipv4.tcp_notsent_lowat = 131072
 EOF
+
+# swapfile
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+sudo sysctl vm.swappiness=10
 
 # SELINUX=disabled
 sed -i 's@^SELINUX.*@SELINUX=disabled@g' /etc/selinux/config
@@ -34,6 +49,10 @@ sudo systemctl mask --now firewalld
 # Setup Caddy
 dnf install -y dnf-plugins-core
 dnf copr enable @caddy/caddy -y && dnf install -y caddy && caddy version
+caddy add-package github.com/caddyserver/cache-handler
+caddy add-package github.com/caddyserver/replace-response
+caddy add-package github.com/sillygod/cdp-cache
+
 mkdir -p /data/www/default
 mkdir -p /var/log/caddy/
 mkdir -p /etc/caddy/conf.d/
@@ -41,10 +60,10 @@ chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
 
-# Setup mariadb 10.11
+# Setup mariadb 10.5
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
-./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
+./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.5
 dnf install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared MariaDB-backup
 lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
 sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
@@ -77,9 +96,15 @@ chown root.caddy /var/lib/php/wsdlcache
 chown root.caddy /var/lib/php/opcache
 
 # Optimization PHP, MariaDB
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/24g_ram_php.ini -O /etc/php.ini
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/24g_ram_www.conf -O /etc/php-fpm.d/www.conf
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/24g_ram_my.conf -O /etc/my.cnf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/php.ini -O /etc/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/PHP/www.conf -O /etc/php-fpm.d/www.conf
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/cloudpanel_my.cnf -O /etc/my.cnf
+#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/MySQL/my.cnf -O /etc/my.cnf
+
+
+# Create symbolic link
+ln -s /var/www /root/
+ln -s /etc/caddy /root/
 
 # start
 systemctl enable mariadb
@@ -89,18 +114,18 @@ systemctl start mariadb
 systemctl start php-fpm
 systemctl start caddy
 
-# Create symbolic link
-ln -s /var/www /root/
-ln -s /etc/caddy /root/
-
 # setup ssl
 mkdir -p /etc/ssl/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.key -O /etc/ssl/bibica.net.key
 
-# setup bibica.net, api.bibica.net
+# setup bibica.net, api.bibica.net, i0.bibica.net, i.bibica.net
+mkdir -p /var/www/bibica.net/cache
+chown -R caddy:caddy /var/www/bibica.net/cache
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i0.bibica.net.conf -O /etc/caddy/conf.d/i0.bibica.net.conf
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/i.bibica.net.conf -O /etc/caddy/conf.d/i.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
@@ -125,15 +150,11 @@ echo "0 3 * * * /usr/local/bin/wp --path='/var/www/bibica.net/htdocs' simply-sta
 echo "*/1 * * * * curl https://bibica.net/wp-cron.php?doing_wp_cron > /dev/null 2>&1" >> simply-static
 crontab simply-static
 
-# Bypass Oracle VM.Standard.A1.Flex
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/NeverIdle-Oracle/master/VM.Standard.A1.Flex.4GB.RAM.sh -O /usr/local/bin/bypass_oracle.sh
-chmod +x /usr/local/bin/bypass_oracle.sh
-nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &
-crontab -l > bypass_oracle
-echo "@reboot nohup /usr/local/bin/bypass_oracle.sh >> ./out 2>&1 <&- &" >> bypass_oracle
-crontab bypass_oracle
+# setup releem
+#yes y| RELEEM_MYSQL_MEMORY_LIMIT=0 RELEEM_API_KEY=c734e3de-3b21-4c29-96c4-26f3cdaf902f RELEEM_MYSQL_ROOT_PASSWORD='Thisisdbrootpassword' RELEEM_CRON_ENABLE=1 bash -c "$(curl -L https://releem.s3.amazonaws.com/v2/install.sh)"
 
 # setup database
+db_pass_root="Thisisdbrootpassword"
 db_name="wordpress_database_name_99999"
 db_user="wordpress_user_99999"
 db_pass="password_pass_99999"
