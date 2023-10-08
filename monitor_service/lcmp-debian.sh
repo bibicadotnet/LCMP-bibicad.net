@@ -23,9 +23,9 @@ if ! systemctl is-active --quiet caddy.service; then
 fi
 
 # Check if PHP service is running 
-if ! systemctl is-active --quiet php-fpm.service; then
+if ! systemctl is-active --quiet php7.4-fpm.service; then
   # If not running, restart and send message to Telegram
-    sudo systemctl restart php-fpm
+    sudo systemctl restart php7.4-fpm
     MESSAGE="Debian - PHP v7.4 Service was down. Restarting now"
     curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d chat_id=$CHAT_ID -d text="$MESSAGE"
 fi
