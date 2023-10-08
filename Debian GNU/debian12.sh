@@ -26,6 +26,7 @@ sudo apt install zip -y
 sudo apt install unzip -y
 sudo apt install screen -y
 sudo apt install wget -y
+sudo apt install curl -y
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
