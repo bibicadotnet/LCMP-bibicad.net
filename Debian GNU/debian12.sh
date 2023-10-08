@@ -131,7 +131,7 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # Monitor and restart PHP, Mysql, Caddy
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/monitor_service_restart.sh -O /usr/local/bin/monitor_service_restart.sh
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/lcmp-debian.sh -O /usr/local/bin/monitor_service_restart.sh
 chmod +x /usr/local/bin/monitor_service_restart.sh
 nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
 crontab -l > monitor_service_restart
