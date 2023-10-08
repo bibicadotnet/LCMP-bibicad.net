@@ -101,10 +101,6 @@ systemctl restart mariadb
 systemctl restart php7.4-fpm
 systemctl restart caddy
 
-# Create symbolic link
-ln -s /var/www /root/
-ln -s /etc/caddy /root/
-
 # setup ssl
 mkdir -p /etc/ssl/
 sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/ssl/bibica.net.pem -O /etc/ssl/bibica.net.pem
@@ -146,6 +142,10 @@ cd /var/www/bibica.net/htdocs
 chown -R caddy:caddy /var/www/bibica.net/htdocs
 find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;
+
+# Create symbolic link
+ln -s /var/www /root/
+ln -s /etc/caddy /root/
 
 # show info database
 green() {
