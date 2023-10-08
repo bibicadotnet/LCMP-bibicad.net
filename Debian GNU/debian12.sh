@@ -39,7 +39,9 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-sudo sysctl vm.swappiness=10
+cat <<EOF > /etc/sysctl.d/99-xs-swappiness.conf
+vm.swappiness=10
+EOF
 
 # setup caddy
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
