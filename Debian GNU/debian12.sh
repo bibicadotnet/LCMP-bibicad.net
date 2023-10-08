@@ -98,6 +98,7 @@ sudo rm -r /usr/lib/apache2
 sudo rm -r /etc/apache2
 sudo rm -r /usr/share/man/man8/apache2.8.gz
 sudo rm -r /etc/php/7.4/apache2
+systemctl restart php7.4-fpm
 
 # Optimization PHP, MariaDB
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
