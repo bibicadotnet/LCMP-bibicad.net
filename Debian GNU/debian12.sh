@@ -85,10 +85,10 @@ sudo apt install php7.4-fpm -y
 systemctl stop php7.4-fpm
 
 # Optimization PHP, MariaDB
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
-wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
+#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
+#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/7.4/fpm/php.ini
+#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/7.4/fpm/pool.d/www.conf
+#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
 
 # start
 systemctl enable mariadb
@@ -109,8 +109,8 @@ sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/
 # setup bibica.net, api.bibica.net, i0.bibica.net, i.bibica.net
 mkdir -p /var/www/bibica.net/cache
 chown -R caddy:caddy /var/www/bibica.net/cache
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
+#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/bibica.net.conf -O /etc/caddy/conf.d/bibica.net.conf
+#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/bibica-net-caddy-config/api.bibica.net.conf -O /etc/caddy/conf.d/api.bibica.net.conf
 systemctl restart caddy
 
 # setup wp-cli
