@@ -81,11 +81,11 @@ sudo apt update && sudo apt install php7.4 -y
 sudo apt-get install -y php7.4-cli php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-opcache -y
 sudo apt install php7.4-fpm -y
 
+# Delete Apache
 sudo service apache2 stop
 sudo apt purge apache2 apache2-utils apache2.2-bin apache2-common -y
 sudo apt remove apache2 apache2-utils apache2.2-bin apache2-common -y
 sudo apt autoremove apache2 apache2-utils apache2.2-bin apache2-common -y
-
 
 # Optimization PHP, MariaDB
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
