@@ -56,11 +56,11 @@ chown -R caddy:caddy /data/www/default
 chown -R caddy:caddy /var/log/caddy/
 chown -R caddy:caddy /etc/caddy/
 
-# Setup mariadb 10.11
-wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
-chmod +x mariadb_repo_setup.sh
-./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
-sudo apt install mariadb-server -y
+# Setup mariadb 10.5
+sudo apt install dirmngr ca-certificates software-properties-common apt-transport-https curl -y
+curl -fsSL http://mirror.mariadb.org/PublicKey_v2 | sudo gpg --dearmor | sudo tee /usr/share/keyrings/mariadb.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/mariadb.gpg] http://mirror.mariadb.org/repo/10.5/debian/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/mariadb.list
+sudo apt update && sudo apt install mariadb-server mariadb-client -y
 db_pass_root="Thisisdbrootpassword"
 mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass_root}\" with grant option;"
 mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass_root}\" with grant option;"
