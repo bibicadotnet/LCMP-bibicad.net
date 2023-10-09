@@ -23,6 +23,16 @@ sudo apt update && sudo apt upgrade -y && sudo reboot
 ```shell
 sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/mariadb10.5-php7.4.sh -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
+# LCMP: Debian 11/12 - Caddy v2.7.4 - PHP 8.2 - MariaDB 10.11
+## Cài đặt LCMP
+### Cập nhập OS
+```shell
+sudo apt update && sudo apt upgrade -y && sudo reboot
+```
+### Chạy trên x86_64, ARM64
+```shell
+sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/mariadb10.11-php8.2.sh -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
+```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
 ## Update
