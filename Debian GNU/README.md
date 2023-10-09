@@ -13,6 +13,10 @@ sudo apt update && sudo apt upgrade -y && sudo reboot
 ```shell
 sudo wget https://go.bibica.net/debian -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
+# LCMP: Debian 11 - Caddy v2.7.4 - PHP 7.4 - MariaDB 10.5
+```shell
+sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/mariadb10.5-php7.4.sh -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
+```
 ## Releem
 Có thể vào releem.com đăng kí 1 tài khoản miễn phí để tự động cấu hình MySQL hàng ngày, giúp hệ thống tối ưu hơn
 ## Update
