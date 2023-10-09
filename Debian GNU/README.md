@@ -1,4 +1,4 @@
-# LCMP: Debian GNU/Linux 12 (Bookworm) - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
+# LCMP: Debian 11/12 - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
 Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cấu hình sử dụng
 OS: Debian GNU/Linux 12 (Bookworm) 
@@ -13,7 +13,13 @@ sudo apt update && sudo apt upgrade -y && sudo reboot
 ```shell
 sudo wget https://go.bibica.net/debian -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
-# LCMP: Debian 11 - Caddy v2.7.4 - PHP 7.4 - MariaDB 10.5
+# LCMP: Debian 11/12 - Caddy v2.7.4 - PHP 7.4 - MariaDB 10.5
+## Cài đặt LCMP
+### Cập nhập OS
+```shell
+sudo apt update && sudo apt upgrade -y && sudo reboot
+```
+### Chạy trên x86_64, ARM64
 ```shell
 sudo wget https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/mariadb10.5-php7.4.sh -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
