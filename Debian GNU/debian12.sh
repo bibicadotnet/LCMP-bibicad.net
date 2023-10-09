@@ -18,6 +18,7 @@ EOF
 # update 
 sudo apt update -y
 sudo apt install htop -y
+sudo apt install nano -y
 sudo apt install zip -y
 sudo apt install unzip -y
 sudo apt install screen -y
