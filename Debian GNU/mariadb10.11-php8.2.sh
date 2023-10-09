@@ -107,13 +107,13 @@ systemctl restart php8.2-fpm
 
 # Optimization PHP, MariaDB
 
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
-#systemctl restart mariadb
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/8.2/fpm/php.ini
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
-#systemctl restart php7.4-fpm
-#wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
-#systemctl restart caddy
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
+systemctl restart mariadb
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/php.ini -O /etc/php/8.2/fpm/php.ini
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/www.conf -O /etc/php/8.2/fpm/pool.d/www.conf
+systemctl restart php8.2-fpm
+wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/Caddyfile -O /etc/caddy/Caddyfile
+systemctl restart caddy
 
 # Auto start
 systemctl enable mariadb
@@ -141,12 +141,12 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # Monitor and restart PHP, Mysql, Caddy
-sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/lcmp-debian.sh -O /usr/local/bin/monitor_service_restart.sh
-chmod +x /usr/local/bin/monitor_service_restart.sh
-nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
-crontab -l > monitor_service_restart
-echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
-crontab monitor_service_restart
+#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/lcmp-debian.sh -O /usr/local/bin/monitor_service_restart.sh
+#chmod +x /usr/local/bin/monitor_service_restart.sh
+#nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
+#crontab -l > monitor_service_restart
+#echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
+#crontab monitor_service_restart
 
 # setup crontab cho wp_cron and simply-static
 crontab -l > simply-static
