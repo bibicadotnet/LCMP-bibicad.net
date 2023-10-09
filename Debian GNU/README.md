@@ -13,7 +13,7 @@ sudo apt update && sudo apt upgrade -y && sudo reboot
 ```shell
 sudo wget https://go.bibica.net/debian -O server.sh && sudo chmod +x server.sh && sudo ./server.sh
 ```
-# LCMP: Debian 11/12 - Caddy v2.7.4 - PHP 7.4 - MariaDB 10.5
+# LCMP: Debian 11 - Caddy v2.7.4 - PHP 7.4 - MariaDB 10.5
 ## Cài đặt LCMP
 ### Cập nhập OS
 ```shell
