@@ -12,22 +12,47 @@ cat <<EOF > /etc/sysctl.conf
 # TCP BBR congestion control
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
-net.ipv4.tcp_rmem = 8192 262144 536870912
-net.ipv4.tcp_wmem = 4096 16384 536870912
-net.ipv4.tcp_adv_win_scale = -2
-net.ipv4.tcp_collapse_max_bytes = 6291456
-net.ipv4.tcp_notsent_lowat = 131072
+net.ipv4.tcp_notsent_lowat = 16384
 EOF
 
 # update 
 sudo apt update -y
 sudo apt install htop -y
+sudo apt install nano -y
 sudo apt install zip -y
 sudo apt install unzip -y
 sudo apt install screen -y
 sudo apt install wget -y
 sudo apt install curl -y
 sudo apt install gpg -y
+
+# Set time Viet Nam
+timedatectl set-timezone Asia/Ho_Chi_Minh
+
+# setup swapfile
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+cat <<EOF > /etc/sysctl.d/99-xs-swappiness.conf
+vm.swappiness=10
+EOF
+
+# Set time Viet Nam
+timedatectl set-timezone Asia/Ho_Chi_Minh
+
+# setup swapfile
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+cat <<EOF > /etc/sysctl.d/99-xs-swappiness.conf
+vm.swappiness=10
+EOF
 
 # Set time Viet Nam
 timedatectl set-timezone Asia/Ho_Chi_Minh
