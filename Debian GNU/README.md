@@ -1,7 +1,7 @@
 # LCMP: Debian 11/12 - Caddy v2.7.4 - PHP 7.4.33 - MariaDB 10.11.5
 Đây là các cài đặt và cấu hình mình đang áp dụng cho thèng bibica.net
 ## Cấu hình sử dụng
-OS: Debian GNU/Linux 12 (Bookworm) 
+OS: Debian GNU/Linux 11/12
 
 UpCloud 1 GB RAM - Singapore
 ## Cài đặt LCMP
