@@ -26,23 +26,6 @@ sudo apt install wget -y
 sudo apt install curl -y
 sudo apt install gpg -y
 
-# Set time Viet Nam
-timedatectl set-timezone Asia/Ho_Chi_Minh
-
-# setup swapfile
-sudo fallocate -l 1G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-cat <<EOF > /etc/sysctl.d/99-xs-swappiness.conf
-vm.swappiness=10
-EOF
-
-# Set time Viet Nam
-timedatectl set-timezone Asia/Ho_Chi_Minh
-
 # setup swapfile
 sudo fallocate -l 1G /swapfile
 sudo chmod 600 /swapfile
