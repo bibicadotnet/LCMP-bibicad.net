@@ -128,12 +128,12 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 # Monitor and restart PHP, Mysql, Caddy
-#sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/lcmp-debian.sh -O /usr/local/bin/monitor_service_restart.sh
-#chmod +x /usr/local/bin/monitor_service_restart.sh
-#nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
-#crontab -l > monitor_service_restart
-#echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
-#crontab monitor_service_restart
+sudo wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/monitor_service/lcmp-debian11.sh -O /usr/local/bin/monitor_service_restart.sh
+chmod +x /usr/local/bin/monitor_service_restart.sh
+nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &
+crontab -l > monitor_service_restart
+echo "@reboot nohup /usr/local/bin/monitor_service_restart.sh >> ./out 2>&1 <&- &" >> monitor_service_restart
+crontab monitor_service_restart
 
 # setup crontab cho wp_cron and simply-static
 crontab -l > simply-static
