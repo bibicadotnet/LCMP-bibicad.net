@@ -60,16 +60,16 @@ sudo apt install mariadb-server -y
 db_pass_root="Thisisdbrootpassword"
 mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass_root}\" with grant option;"
 mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass_root}\" with grant option;"
-mysql -uroot -p${db_pass_root} 2>/dev/null <<EOF
-drop database if exists test;
-delete from mysql.db where user='';
-delete from mysql.db where user='PUBLIC';
-delete from mysql.user where user='';
-delete from mysql.user where user='mysql';
-delete from mysql.user where user='PUBLIC';
-flush privileges;
-exit
-EOF
+#mysql -uroot -p${db_pass_root} 2>/dev/null <<EOF
+#drop database if exists test;
+#delete from mysql.db where user='';
+#delete from mysql.db where user='PUBLIC';
+#delete from mysql.user where user='';
+#delete from mysql.user where user='mysql';
+#delete from mysql.user where user='PUBLIC';
+#flush privileges;
+#exit
+#EOF
 
 # Setup php 7.4
 sudo apt install -y apt-transport-https lsb-release ca-certificates wget 
