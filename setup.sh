@@ -21,11 +21,6 @@ cat <<EOF > /etc/sysctl.conf
 # TCP BBR congestion control
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
-net.ipv4.tcp_rmem = 8192 262144 536870912
-net.ipv4.tcp_wmem = 4096 16384 536870912
-net.ipv4.tcp_adv_win_scale = -2
-net.ipv4.tcp_collapse_max_bytes = 6291456
-net.ipv4.tcp_notsent_lowat = 131072
 EOF
 
 # swapfile
@@ -63,10 +58,10 @@ chown -R caddy.caddy /data/www/default
 chown -R caddy.caddy /var/log/caddy/
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Caddy/Caddyfile -O /etc/caddy/Caddyfile
 
-# Setup mariadb 10.5
+# Setup mariadb 10.11
 wget -qO mariadb_repo_setup.sh https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 chmod +x mariadb_repo_setup.sh
-./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.5
+./mariadb_repo_setup.sh --mariadb-server-version=mariadb-10.11
 dnf install -y MariaDB-common MariaDB-server MariaDB-client MariaDB-shared MariaDB-backup
 lnum=$(sed -n '/\[mariadb\]/=' /etc/my.cnf.d/server.cnf)
 sed -i "${lnum}acharacter-set-server = utf8mb4\n\n\[client-mariadb\]\ndefault-character-set = utf8mb4" /etc/my.cnf.d/server.cnf
