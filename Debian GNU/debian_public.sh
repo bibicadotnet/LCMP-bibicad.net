@@ -60,16 +60,6 @@ sudo apt install mariadb-server -y
 db_pass_root="Thisisdbrootpassword"
 mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${db_pass_root}\" with grant option;"
 mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${db_pass_root}\" with grant option;"
-mysql -uroot -p${db_pass_root} 2>/dev/null <<EOF
-drop database if exists test;
-delete from mysql.db where user='';
-delete from mysql.db where user='PUBLIC';
-delete from mysql.user where user='';
-delete from mysql.user where user='mysql';
-delete from mysql.user where user='PUBLIC';
-flush privileges;
-exit
-EOF
 
 # Setup php 7.4
 sudo apt install -y apt-transport-https lsb-release ca-certificates wget 
@@ -82,16 +72,6 @@ sudo apt install php7.4-fpm -y
 # Delete Apache
 sudo systemctl disable --now apache2
 sudo service apache2 stop
-sudo apt remove --autoremove apache2 -y
-sudo apt purge apache2 apache2-utils -y
-sudo apt remove apache2 apache2-utils -y
-sudo apt autoremove apache2 apache2-utils -y
-sudo rm -r /usr/sbin/apache2 
-sudo rm -r /usr/lib/apache2
-sudo rm -r /etc/apache2
-sudo rm -r /usr/share/man/man8/apache2.8.gz
-sudo rm -r /etc/php/7.4/apache2
-systemctl restart php7.4-fpm
 
 # Optimization PHP, MariaDB
 wget --no-check-certificate https://raw.githubusercontent.com/bibicadotnet/LCMP-bibicad.net/main/Debian%20GNU/my.cnf -O /etc/mysql/my.cnf
